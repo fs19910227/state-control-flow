@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/class-diagram
+title 状态机核心控制流程类图
+
+
+interface StateMachine<S,E,C>{
+ boolean fire(Message<S,E,C> content)
+ String getId();
+}
+note left:Standard StateMachine Definition\ncan generate StateMachine Instance
+class StateMachineConfigLoader{
+    List<StateMachine> load(List<StateMachineConfig> configs);
+}
+note right:StateMachineLoader,扫描StateMachineConfig批量构建状态机实例
+interface StateMachineConfig<S,E,C>{
+    void configureConfiguration(ConfigurationConfigurer configure);
+    void configureState(StateConfigurer configure);
+    void configureTransitions(TransitionConfigurer configure);
+}
+note left:config class
+class StateMachineModel<S,E,C>{
+	-List<Transitions<S,E,C>> transitions
+	-List<State<S,E,C>> states
+	-Configurations<S,E,C> configurations
+}
+note right:StateMachine core model,contains all config info
+class StateMachineBuilder<S,E,C>{
+ StateMachine<S,E,C> build();
+}
+note right:Builder
+class StateMachineFactory<S,E,C>{
+  StateMachine buildStateMachine(StateMachineModel<S,E,C> model)
+}
+note right: 状态机工厂,负责build StateMachine
+interface StateMachineManager<S,E,C>{
+	String group();
+	StateMachine<S, E, C> getById(String id);
+	StateMachine<S, E, C> selectOneByContent(C content);
+}
+note bottom: StateMachineManagerFactory
+interface StateMachineManagerFactory{
+  StateMachineManager getStateMachineManager(String group)
+}
+
+StateMachineBuilder *-- StateMachineConfigLoader : depends on
+StateMachine "n" <. "1" StateMachineFactory : generate
+StateMachineFactory *-- StateMachineBuilder : depends on
+StateMachineConfig ..> StateMachineConfigLoader : loadConfig
+StateMachineModel *-- StateMachineFactory : use
+StateMachineConfigLoader *-- StateMachineManagerFactory : depends on
+StateMachineManager *-- StateMachineManagerFactory : hold
+StateMachine "n" <. "1" StateMachineManager : select
+
+
+
+@enduml

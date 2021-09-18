@@ -1,0 +1,14 @@
+@startuml
+title simple
+START : label:start
+UN_PAID : label:未支付
+CANCELED : label:已取消
+PAID : label:已支付
+OPENED : label:已开通
+START --> UN_PAID : CREATE(创建)
+UN_PAID --> CANCELED : CANCEL(取消)
+UN_PAID --> PAID : PAY(支付)
+PAID --> OPENED : OPEN(开通)
+[*] --> START
+OPENED --> [*]
+@enduml

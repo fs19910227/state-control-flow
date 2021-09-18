@@ -1,0 +1,45 @@
+@startuml
+title 状态机执行时序图
+skinparam responseMessageBelowArrow true
+participant StateMachineManager as smm
+actor User as u
+participant StateMachine as sm
+participant TransitionManager as tm
+participant Transition as t
+participant EventPublisher as ep
+autonumber
+u -> smm : selectOneByContent(C content)\n根据Content选择StateMachine
+smm-> u : return StateMachine
+u -> sm : fire(Message<S,E,C>)\n发送消息,开始流转
+sm -> sm : build context\nbuild context with message
+sm -> tm : selectMatchTransitions(message)\n根据Message选择Transition
+tm -> sm : return List<Transition>
+sm -> ep : publish transit start event
+sm -> t : boolean transit(Context context)\n 进行变换
+t->t : judge guard
+alt guard not pass
+t-> sm:return false
+end
+alt choice transit
+t->t : choice transit
+else history transit
+t->t : history transit,restore data
+else normal
+alt target need record
+t->t : record history
+end
+end
+t -> t : change target
+t -> t : process actions
+t -> sm : return transit result
+alt transit success
+sm -> ep : publish transit success
+alt state changed
+sm -> ep : publish state changed
+end
+else transit fail
+sm -> ep : publish eventNotAccept (transit fail)
+end
+sm -> u : return result
+
+@enduml

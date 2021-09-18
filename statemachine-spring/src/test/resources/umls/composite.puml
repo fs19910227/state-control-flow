@@ -1,0 +1,29 @@
+@startuml
+title composite
+START : label:start
+UN_PAID : label:未支付
+PAID : label:已支付
+OPENING : label:开通中
+OPENED : label:已开通
+REFUNDING : label:退款中
+REFUND_SUCCEED : label:退款成功
+state choice_on_open <<choice>>
+state choice_on_refund_pass <<choice>>
+state choice_on_refund_deny <<choice>>
+START --> UN_PAID : CREATE(创建)
+UN_PAID --> PAID : PAY(支付)
+PAID --> choice_on_open : OPEN(开通)
+PAID --> REFUNDING : REFUND_COMMIT(提交退款)
+OPENING -[dotted]-> OPENED : OPEN(开通)\nmatch:AllOpen
+OPENED --> REFUNDING : REFUND_COMMIT(提交退款)
+REFUNDING --> choice_on_refund_pass : REFUND_PASS(同意退款)
+REFUNDING --> choice_on_refund_deny : REFUND_DENNY(拒绝退款)
+choice_on_refund_pass -[dotted]-> REFUND_SUCCEED : \nmatch:AllRefund
+choice_on_refund_pass -[dotted]-> REFUNDING : \nmatch:default
+choice_on_open -[dotted]-> OPENED : \nmatch:AllOpen
+choice_on_open -[dotted]-> OPENING : \nmatch:default
+choice_on_refund_deny -[dotted]-> PAID : \nmatch:AllPaid
+choice_on_refund_deny -[dotted]-> OPENED : \nmatch:AllOpen
+choice_on_refund_deny -[dotted]-> REFUNDING : \nmatch:default
+[*] --> START
+@enduml

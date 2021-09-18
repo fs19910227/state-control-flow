@@ -1,0 +1,25 @@
+@startuml
+@startuml
+title 状态机构建时序图
+skinparam responseMessageBelowArrow true
+participant Spring as spring
+participant StateMachineManagerFactory as smmf
+participant StateMachineConfigLoader as cl
+participant StateMachineBuilder as builder
+participant StateMachineFactory as smf
+participant StateMachineManager as smm
+autonumber
+spring -> spring : scan config beans
+spring -> smmf: call init(configs)
+smmf->smmf:init
+smmf -> cl: loadConfig(configs)
+cl -> builder : build machines
+builder -> smf: create stateMachine
+return
+builder -> cl:return
+cl -> cl: wrapper and group
+cl -> smmf:return
+smmf -> smm:create
+return
+
+@enduml

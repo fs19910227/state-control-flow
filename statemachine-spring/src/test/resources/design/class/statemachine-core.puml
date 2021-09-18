@@ -1,0 +1,59 @@
+@startuml
+'https://plantuml.com/class-diagram
+title 状态机核心类图
+
+
+interface StateMachine<S,E,C>{
+ StateMachineInstance instance(StateContext<S,E,C> context)
+ String getId();
+ Collection<Transition<S,E>> getTransitions();
+ boolean fire(StateContext<S,E,C> context)
+}
+interface State<S,E,C>{
+    S getId();
+}
+interface Transition<S,E,C>{
+	boolean transit(StateContext<S, E, C> context);
+	State<S,E> getSource();
+	State<S,E> getTarget();
+	Trigger<S, E> getTrigger();
+	boolean transit(StateContext<S, E> context);
+	Collection<Action<S, E>> getActions();
+}
+interface Trigger<S,E,C>{
+	E getEvent();
+}
+interface Guard<S,E,C>{
+	boolean evaluate(StateContext<S,E,C> context);
+}
+interface Action<S,E,C>{
+	void evaluate(StateContext<S,E,C> context);
+}
+class StateContext<S,E,C>{
+	State<S, E> getSource();
+	State<S, E> getTarget();
+	E getEvent();
+}
+Trigger *-- Transition
+State *-- Transition
+StateContext *-- Transition
+Action *-- Transition
+
+StateContext *-- Action
+StateContext *-- Guard
+
+Transition *-- StateMachine
+State *-- StateMachine
+interface StateMachineListener<S,E,C>{
+'	void stateChanged(State<S,E> from, State<S,E> to);
+	void transitionStarted(Transition<S, E> transition);
+	void transitionEnded(Transition<S, E> transition);
+	void eventNotAccepted(Message<E> event);
+}
+interface StateMachineInterceptor<S,E,C>{
+	StateContext<S, E,C> preTransition(StateContext<S, E,C> stateContext);
+	StateContext<S, E,C> postTransition(StateContext<S, E,C> stateContext);
+	void postStateChange(State<S, E,C> state, Message<S,E,C> message, Transition<S, E,C> transition,
+			StateMachine<S, E,C> stateMachine);
+}
+@enduml

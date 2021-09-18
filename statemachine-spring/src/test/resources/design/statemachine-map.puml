@@ -1,0 +1,23 @@
+@startmindmap
+title 标准状态机概念脑图
+* StateMachine
+** State
+*** Pseudo State
+****_ Choice State
+****_ Initial State
+****_ History State
+*** Normal State
+** Trigger
+*** EventTrigger
+*** TimerTrigger
+** Transition
+*** External
+*** Internal
+*** Local
+*** Initial
+left
+** Action
+** Guard
+
+
+@endmindmap
