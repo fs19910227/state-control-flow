@@ -16,6 +16,7 @@
 关于状态机的概念基本来自Spring StateMachine.
 
 相比于Spring StateMachine 更注重流程控制。
+
 ##使用文档
 
 尽量贴近标准uml状态机使用流程。
