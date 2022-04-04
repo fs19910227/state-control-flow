@@ -1,9 +1,26 @@
+#State-Base Control Flow Engine
+基于状态的控制流引擎
+## 写在前面
+项目本来目的是为了实现无状态的状态机,嗯主要是搞状态机。
 
-# 状态机使用文档
+应用一段时间之后，发现无状态的情况下，状态机的很多功能都不容易实现。
 
-基于标准uml实现的无状态状态机。
+该项目越搞越像基于状态的控制流，离初衷越来越远。
 
-## 基本概念解释
+而且无状态状态机，名字本身就自相矛盾，索性就叫无状态状态机好了。
+
+## 项目简介
+
+致力于通过状态控制程序执行的流程,适用于状态敏感的场景。
+
+关于状态机的概念基本来自Spring StateMachine.
+
+相比于Spring StateMachine 更注重流程控制。
+##使用文档
+
+尽量贴近标准uml状态机使用流程。
+
+### 基本概念解释
 
 先上个状态图：
 
@@ -30,9 +47,9 @@ Pseudo State: 伪状态。比如Choice Transition中发生分叉的Choice节点�
 
 ![](https://www.planttext.com/api/plantuml/img/SoWkIImgAStDuIh9BCb9LSZ8B2x9Bwha2d3qT56mKdYwVTEpAUkVx9u14_20o2iuLIfuU0Q7-0T5Sla7kFgvGXK_tTFmic4MGWYByY1Njr0_btZ7K1VF44y_Tw2YbmqDpzRiUxfkuRC5EvxiM0jJ4HpgxEmADWMYu5d7XATTyxcWvW25OMv5Y1IbfWMN99Qa5bj5Wzohem1nI2p4zRgwTWfmbu4O6X3dQYAaCHq75N7sz_Nr3D5urZ_XoQub4FTemhn9kaPqrI0JeBw8zeX5Q7PnzVEBr7ZMFUdvxhduz6A465GWm34uMEFfX9vdBVqmxGwfUIcWw0O0)
 
-## 功能特性
+### 功能特性
 
-### 标准功能
+#### 标准功能
 
 支持基于java代码进行状态机Model的配置
 
@@ -47,11 +64,11 @@ Pseudo State: 伪状态。比如Choice Transition中发生分叉的Choice节点�
 支持通过EventListener,Interceptor进行扩展
 
 
-### 扩展功能
+#### 扩展功能
 支持通过StateMachineModel生成puml
 支持webConsole,展示StateMachine MetaInfo
 
-## 项目结构
+### 项目结构
 
 statemachine-core				 状态机核心逻辑
 
@@ -66,7 +83,7 @@ statemachine-spring-boot-starter 状态机autostarter
 statemachine-demo			状态机demo
 
 
-## QuickStart
+### QuickStart
 1. 新增依赖
 
    ```xml
