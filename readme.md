@@ -1,25 +1,32 @@
 #State-Base Control Flow Engine
 基于状态的控制流引擎
+
 ## 写在前面
+
 项目本来目的是为了实现无状态的状态机,嗯主要是搞状态机。
+
+无状态的概念主要来自阿里cola项目中的StateMachine。
 
 应用一段时间之后，发现无状态的情况下，状态机的很多功能都不容易实现。
 
 该项目越搞越像基于状态的控制流，离初衷越来越远。
 
-而且无状态状态机，名字本身就自相矛盾，索性就叫无状态状态机好了。
+所以更名为基于状态的控制流引擎。
 
 ## 项目简介
 
 致力于通过状态控制程序执行的流程,适用于状态敏感的场景。
 
-关于状态机的概念基本来自Spring StateMachine.
+关于状态机的概念基本来自Spring StateMachine。
 
 相比于Spring StateMachine 更注重流程控制。
 
-## 使用文档
+在实现核心功能的前提下，重点解决以下问题。
 
-尽量贴近标准uml状态机使用流程。
+- 代码可视化。提供可视化的界面，既可以快速验证配置，也可以当做文档使用。
+- 自我校验。启动时会校验状态机的配置，提前发现问题，提前解决。
+
+## 使用文档
 
 ### 基本概念解释
 
@@ -73,18 +80,32 @@ Pseudo State: 伪状态。比如Choice Transition中发生分叉的Choice节点�
 
 statemachine-core				 状态机核心逻辑
 
-statemachine-extend			状态机扩展逻辑，支持状态机管理
+statemachine-extend 状态机扩展逻辑，支持状态机管理
 
-statemachine-spring			 状态机与Spring集成
+statemachine-spring 状态机与Spring集成
 
-statemachine-webserver	 状态机Web-Controller
+statemachine-webserver 状态机Web-Controller
 
 statemachine-spring-boot-starter auto start
 
-statemachine-demo			状态机demo
+statemachine-demo 状态机demo
 
+### 集成指南
 
-### QuickStart
+statemachine-demo 包含了详细的集成样例，可直接参考。
+
+#### 快速体验
+
+想快速体验可以直接运行 statemachine-demo项目
+启动类: com.doubao.statemachine.demo.DemoApplication
+
+启动服务后，访问浏览器：http://localhost:8088/webjars/machine-ui.html#/detail/choice
+
+效果如下图：
+![img.png](docs/demo-show.png)
+
+#### 集成明细
+
 1. 新增依赖
 
    ```xml
@@ -233,4 +254,4 @@ statemachine-demo			状态机demo
    }
    ```
 
-具体细节请参考statemachine-demo
+
