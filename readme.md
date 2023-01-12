@@ -77,9 +77,9 @@ statemachine-extend			状态机扩展逻辑，支持状态机管理
 
 statemachine-spring			 状态机与Spring集成
 
-statemachine-webserver	 状态机Web-Controller , Web-UI 。ui项目地址：http://git.ichoice.cc/doubao/statemachine-static-web
+statemachine-webserver	 状态机Web-Controller
 
-statemachine-spring-boot-starter 状态机autostarter
+statemachine-spring-boot-starter 启动入口
 
 statemachine-demo			状态机demo
 
