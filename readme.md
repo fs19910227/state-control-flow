@@ -79,7 +79,7 @@ statemachine-spring			 状态机与Spring集成
 
 statemachine-webserver	 状态机Web-Controller
 
-statemachine-spring-boot-starter 启动入口
+statemachine-spring-boot-starter auto start
 
 statemachine-demo			状态机demo
 
